@@ -6,7 +6,6 @@ html{
 h1 {
     display: block;
     font-size: 2em;
-    margin-block-start: 0.67em;
     margin-block-end: 0.67em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
@@ -15,6 +14,11 @@ h1 {
 }
 body{
   background-color: pink;
+}
+img{
+  width: 350px;
+  height: 450px;
+  margin-top: 400px;
 }
 .divide{
   display: flex;
@@ -26,7 +30,7 @@ body{
 }
 .middle{
   width: 80%;
-  
+  background-color: white;
 }
 .rightside{
   width: 10%;
