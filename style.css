@@ -1,0 +1,46 @@
+@charset "UTF-8";
+html{
+  font-size: 100%;
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    color: firebrick;
+}
+body{
+  background-color: pink;
+}
+img{
+  width: 350px;
+  height: 450px;
+  margin-top: 400px;
+}
+.divide{
+  display: flex;
+  justify-content: space-between;
+}
+.leftside{
+  width: 10%;
+  background-color: green;
+}
+.middle{
+  width: 80%;
+  background-color: white;
+}
+.rightside{
+  width: 10%;
+  background-color: green;
+}
+footer{
+  background-color: sienna;
+  text-align: center;
+  padding: 20px 0;
+}
+footer p{
+  color: White;
+  font-size: 1rem;
