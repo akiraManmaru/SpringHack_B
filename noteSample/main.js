@@ -17,8 +17,6 @@
 const WIDTH  = 700;
 const HEIGHT = 700;
 
-const imagePath =["./2.note.png","2note.png","4note.png","8kyusi.png","8note.png", "16note.png","henote.png","tonote.png"];
-
 // set matter.js modules 
 const Engine     = Matter.Engine;
 const Render     = Matter.Render;
@@ -71,6 +69,8 @@ window.onload = ()=>{
     const ballComposite = Composite.create();
     Composite.add(engine.world, ballComposite);
 
+	createBag(400, 400, 90, 140);
+
 
 //----------------Event---------------------
     //マウスカーソルの設定
@@ -118,6 +118,8 @@ window.onload = ()=>{
 		})
 	});
 
+//-------------------- function ----------------------
+
     function createBag(x,y,w,h){
 		//set obejct that bag object stored
 		const group = Body.nextGroup(true);
@@ -126,30 +128,25 @@ window.onload = ()=>{
 		//bag
 		const body = Bodies.rectangle(x, y, w, h, {
 			collisionFilter: {group: group},
-			chamfer: {radius: h*0.5},
 			isStatic: true,
 			render: {
-				sprite:{texture: './images/bag.png'},
+				sprite:{texture: './images/bag.png',
+				xScale:0.15,
+				yScale:0.15
+				},
 			}
 		});
 
 		//bag at top
-		const top = Bodies.renctangle(x, y, w, h, {
+		const top = Bodies.rectangle(x, y-(h/2)-1, w, h/5, {
 			collisionFillter: {group: group},
-			label: 'bagTop'
+			label: 'bagTop',
+			isStatic: true,
+			background: 'transparent',
 		});
 
-		const jointBag = Constraint.create({
-			bodyA: body,
-			bodyB: top,
-			pointB: {x: 100, y: 0},
-			stiffness: 1,
-			length: 0
-		})
-
+		Composite.addBody(bag, top);
 		Composite.addBody(bag, body);
-		Composite.addBody(bag, bagTop);
-		Composite.addConstraint(bag, jointBag);
 		Composite.add(engine.world, bag);
     }
     
