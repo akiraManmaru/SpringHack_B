@@ -90,8 +90,8 @@ window.onload = ()=>{
         
 		// create note
         const metor = Math.random();
-        const width = (1+metor) * 25;
-        const height = (1+metor) * 25 + 10;
+        const width = (1+metor) * 30;
+        const height = (1+metor) * 30 + 10;
         const ball = Bodies.rectangle(50, 300, width, height, { 
             restitution: 0.5 ,
 			label: 'note',
@@ -99,8 +99,8 @@ window.onload = ()=>{
             render: {
 				strokeStyle: "#ffffff",
 				sprite: {texture: './images/note_'+Math.floor(metor * 8 + 1)+'.png',
-						xScale:(metor+1) * 0.05,
-						yScale:(metor+1) * 0.05
+						xScale:(metor+1) * 0.07,
+						yScale:(metor+1) * 0.07
 				}
 			}
         });
