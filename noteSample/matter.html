@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <!-- <link rel="stylesheet" type="text/css" href="./style/background.css"> -->
+    <!-- MUST. ここ必須でインポートしてください．使用しているライブラリのcdnです -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js" integrity="sha512-3RlxD1bW34eFKPwj9gUXEWtdSMC59QqIqHnD8O/NoTwSJhgxRizdcFVQhUMFyTp5RwLTDL0Lbcqtl8b7bFAzog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.js" integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js"></script>
@@ -88,7 +88,9 @@
 		</h1>
 	</header>
 	<figure>
+		<!-- このサンプルではここで指定しているIDにmain.js側でcanvasをレンダリングしています． -->
 		<div id="playscreen"></div>
+		<!-- 鳴らしたい音を入れています．（ps.htmlでの変更になってしまいすみません） -->
 		<audio id="uguisu" preload="auto"><source src="./sounds/uguisu1.mp3"></audio>
 	</figure>
 

@@ -3,15 +3,8 @@
 //==========
 // Matter.js
 
+//指定したIDを取得
 var stage = document.getElementById('playscreen');
-// var ctx;
-
-//   ctx = stage.getContext('2d');
-
-//   stage.width = 600;
-//   stage.height = 600;
-
-//   ctx.strokeRect(300, 300, 100, 60);
 
 // canvas size
 const WIDTH  = 700;
@@ -40,10 +33,11 @@ window.onload = ()=>{
 
 	// rendering screen
 	const render = Render.create({
-		element: stage,//document.body,
+		element: stage,//レンダリングする位置を指定しています
 		engine: engine,
 		options: {
 			width: WIDTH, height: HEIGHT,
+			//以下でバック用と考えていいです
 			showAngleIndicator: false,
 			showCollisions: false,
 			showDebug: false,
@@ -51,6 +45,7 @@ window.onload = ()=>{
 			showVelocity: false,
 			hasBounds: true,
 			wireframes: false,// Important!!
+			//IMO. canvasのレンダリングは背景透過して書き出しているので，画像を重ねたりで位置調整が可能かもです．
 			background: 'transparent',
 		},
 
@@ -66,13 +61,13 @@ window.onload = ()=>{
 	Composite.add(engine.world,  ground);
 
     // create note composite( =>Event, create note when 'mousedown') 
-    const ballComposite = Composite.create();
-    Composite.add(engine.world, ballComposite);
+    const noteComposite = Composite.create();
+    Composite.add(engine.world, noteComposite);
 
 	createBag(500, 500, 120, 190);
 
 
-//----------------Event---------------------
+//---------------- Event ---------------------
     //マウスカーソルの設定
     const mouse = Mouse.create(render.canvas);
 	render.mouse = mouse;
@@ -88,11 +83,11 @@ window.onload = ()=>{
         // ドラッグ中の処理
         if (mouseConstraint.body) { return }
         
-		// create note
+		// create note(クリック中の処理)
         const metor = Math.random();
         const width = (1+metor) * 30;
         const height = (1+metor) * 30 + 10;
-        const ball = Bodies.rectangle(50, 300, width, height, { 
+        const note = Bodies.rectangle(50, 300, width, height, { 
             restitution: 0.5 ,
 			label: 'note',
 			chamfer: {radius: 12},
@@ -104,27 +99,33 @@ window.onload = ()=>{
 				}
 			}
         });
-		console.log(metor*8+1);
-		Body.setVelocity(ball, {x: (Math.random()+1)*3,y: -(Math.random()+1)*4});
-        Composite.add(ballComposite, ball);
+		// console.log(metor*8+1);
+
+		//音符の初速度の設定をしています．
+		Body.setVelocity(note, {x: (Math.random()+1)*3,y: -(Math.random()+1)*4});
+        Composite.add(noteComposite, note);
     });
 	Composite.add(engine.world, mouseConstraint);
 
+	//エンジン内の衝突を検知した時の処理です
 	Events.on(engine, 'collisionStart', e => {
 		var pairs = e.pairs;
         for (var i = 0; i < pairs.length; i++) {
+			//衝突した物体のラベルを調べる
             var labelA = pairs[i].bodyA.label;
             var labelB = pairs[i].bodyB.label;
-			console.log(labelB);
+			// console.log(labelB);
+
+			//袋上部（bagTop）と音符（note）の衝突した時の処理
             if (labelA == 'bagTop' && labelB == 'note') {
                 uguisu.currentTime =0;
 				uguisu.play();
-				Composite.remove(ballComposite, pairs[i].bodyB);
+				Composite.remove(noteComposite, pairs[i].bodyB);
             }
             if (labelA == 'note' && labelB == 'bagTop') {
                 uguisu.currentTime =0;
 				uguisu.play();
-				Composite.remove(ballComposite, pairs[i].bodyA);
+				Composite.remove(noteComposite, pairs[i].bodyA);
 			}
         }
 	});
@@ -137,9 +138,10 @@ window.onload = ()=>{
 		const bag = Composite.create({label: "bag"});
 
 		//bag
+		//袋自体の物体を作成
 		const body = Bodies.rectangle(x, y, w, h, {
 			collisionFilter: {group: group},
-			isStatic: true,
+			isStatic: true,//静的な物体として定義しています
 			render: {
 				sprite:{texture: './images/bag.png',
 				xScale:0.15,
@@ -152,7 +154,7 @@ window.onload = ()=>{
 		const top = Bodies.rectangle(x, y-(h/2)-1, w, 10, {
 			collisionFillter: {group: group},
 			label: 'bagTop',
-			isStatic: true,
+			isStatic: true,//静的な物体として定義しています
 			background: 'transparent',
 		});
 
@@ -162,7 +164,7 @@ window.onload = ()=>{
     }
     
     
-	// 4, 物理世界を更新します
+	// 物理世界を更新します
 	const runner = Runner.create();
 	Runner.run(runner, engine);
 }
