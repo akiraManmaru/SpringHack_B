@@ -55,7 +55,7 @@ window.onload = ()=>{
 //--------------------- object ---------------------------
 
 	// 地面
-	const ground = Bodies.rectangle(WIDTH/2, HEIGHT, WIDTH, 50, 
+	const ground = Bodies.rectangle(WIDTH/2, HEIGHT, WIDTH, 1, 
 		{isStatic: true,
 		fillStyle:"white"});
 	Composite.add(engine.world,  ground);
@@ -151,10 +151,11 @@ window.onload = ()=>{
 		});
 
 		//bag at top
-		const top = Bodies.rectangle(x, y-(h/2)-1, w, 10, {
+		const top = Bodies.rectangle(x, y-(h/2)-1, w-20, 10, {
 			collisionFillter: {group: group},
 			label: 'bagTop',
 			isStatic: true,//静的な物体として定義しています
+			isSensor: true,//衝突のみをトリガーします
 			background: 'transparent',
 		});
 
