@@ -14,6 +14,10 @@ header{
 body{
   background-color: pink;
 }
+#flag img{
+  width: 550px;
+  height: 200px;
+}
 #cello img{
   width: 350px;
   height: 450px;
@@ -22,7 +26,7 @@ body{
 }
 #bag img{
   margin-top: 490px;
-  margin-left: 570px;
+  margin-left: 0px;
   height: 300px;
   width: 250px;
   transform: scale(-1, 1);
