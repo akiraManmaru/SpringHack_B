@@ -1,11 +1,99 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="./style/background.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./style/background.css"> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js" integrity="sha512-3RlxD1bW34eFKPwj9gUXEWtdSMC59QqIqHnD8O/NoTwSJhgxRizdcFVQhUMFyTp5RwLTDL0Lbcqtl8b7bFAzog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.js" integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		body{
+			color: #666;
+			font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+		}
+		h1{
+			margin-top: 30px;
+			position: relative;
+			top: 0;
+			left: 0;
+		}
+		h1,p{
+			text-align: center;
+		}
+		h2 {
+			margin-bottom: 15px;
+			text-align: center;
+		}
+		main {
+			max-width: 960px;
+			margin: 10px auto;
+		}
+		figure {
+			max-width: 640px;
+			margin: 0 auto 30px;
+			border: solid 2px #ccc;
+			border-radius: 12px;
+			text-align: center;
+			overflow: hidden;
+		}
+		figcaption {
+			display: inline-block;
+			margin-bottom: 5px;
+		}
+		#canvas {
+		  width: 100%;
+		  padding-bottom: 75%;
+		  position: relative;
+		}
+		#canvas canvas {
+		  width: 100% !important;
+		  height: 100% !important;
+		  border-radius: 8px;
+		  position: absolute;
+		  left: 0;
+		  top: 0;
+		}
+		
+		footer {
+			padding: 15px;
+			margin-top: 30px;
+			border-top: solid 1px #ccc;
+		}
+		
+		@media only screen and (max-width: 639px) {
+		
+		main {
+			padding: 15px;
+		}
+		figure {
+			max-width: 100%;
+		}
+		h1 {
+		  font-size: 1.5rem;
+		}
+		h2 {
+		  font-size: 1.2rem;
+		}
+		
+		}
+		</style>
 </head>
 <body>
-	<script src="https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js"></script>
-	<script src="./main.js"></script>
-    <script src="./circle.js"></script>
+	<header>
+		<h1 class="headline">
+			<a>サンプル</a>
+		</h1>
+	</header>
+	<figure>
+		<div id="playscreen"></div>
+		<audio id="uguisu" preload="auto"><source src="./sounds/uguisu1.mp3"></audio>
+	</figure>
+
+
+	
+	<script src="./main.js"></script>	
 </body>
 </html>

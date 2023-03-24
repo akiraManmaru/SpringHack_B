@@ -3,7 +3,7 @@
 //==========
 // Matter.js
 
-// var stage = document.createElement(canvas);
+var stage = document.getElementById('playscreen');
 // var ctx;
 
 //   ctx = stage.getContext('2d');
@@ -38,13 +38,13 @@ window.onload = ()=>{
 	const engine = Engine.create();
 	engine.gravity.scale = 0.0003;
 
-	// 2, 画面を描画するクラス
+	// rendering screen
 	const render = Render.create({
-		element: document.body,
+		element: stage,//document.body,
 		engine: engine,
 		options: {
 			width: WIDTH, height: HEIGHT,
-			showAngleIndicator: true,
+			showAngleIndicator: false,
 			showCollisions: false,
 			showDebug: false,
 			showIds: false,
@@ -69,7 +69,7 @@ window.onload = ()=>{
     const ballComposite = Composite.create();
     Composite.add(engine.world, ballComposite);
 
-	createBag(400, 400, 90, 140);
+	createBag(500, 500, 120, 190);
 
 
 //----------------Event---------------------
@@ -90,16 +90,17 @@ window.onload = ()=>{
         
 		// create note
         const metor = Math.random();
-        const width = (1+metor) * 25;
-        const height = (1+metor) * 25 + 10;
-        const ball = Bodies.rectangle(100, 200, width, height, { 
+        const width = (1+metor) * 30;
+        const height = (1+metor) * 30 + 10;
+        const ball = Bodies.rectangle(50, 300, width, height, { 
             restitution: 0.5 ,
+			label: 'note',
 			chamfer: {radius: 12},
             render: {
 				strokeStyle: "#ffffff",
 				sprite: {texture: './images/note_'+Math.floor(metor * 8 + 1)+'.png',
-						xScale:(metor+1) * 0.05,
-						yScale:(metor+1) * 0.05
+						xScale:(metor+1) * 0.07,
+						yScale:(metor+1) * 0.07
 				}
 			}
         });
@@ -107,15 +108,25 @@ window.onload = ()=>{
 		Body.setVelocity(ball, {x: (Math.random()+1)*3,y: -(Math.random()+1)*4});
         Composite.add(ballComposite, ball);
     });
-
 	Composite.add(engine.world, mouseConstraint);
+
 	Events.on(engine, 'collisionStart', e => {
-		$.each(e.pairs, (i, pair) => {
-		  // 
-			if (pair.bodyA.label === 'bagTop') {
-				Composite.remove(ballComposite, pair.bodyB);
+		var pairs = e.pairs;
+        for (var i = 0; i < pairs.length; i++) {
+            var labelA = pairs[i].bodyA.label;
+            var labelB = pairs[i].bodyB.label;
+			console.log(labelB);
+            if (labelA == 'bagTop' && labelB == 'note') {
+                uguisu.currentTime =0;
+				uguisu.play();
+				Composite.remove(ballComposite, pairs[i].bodyB);
+            }
+            if (labelA == 'note' && labelB == 'bagTop') {
+                uguisu.currentTime =0;
+				uguisu.play();
+				Composite.remove(ballComposite, pairs[i].bodyA);
 			}
-		})
+        }
 	});
 
 //-------------------- function ----------------------
@@ -132,13 +143,13 @@ window.onload = ()=>{
 			render: {
 				sprite:{texture: './images/bag.png',
 				xScale:0.15,
-				yScale:0.15
+				yScale:0.17
 				},
 			}
 		});
 
 		//bag at top
-		const top = Bodies.rectangle(x, y-(h/2)-1, w, h/5, {
+		const top = Bodies.rectangle(x, y-(h/2)-1, w, 10, {
 			collisionFillter: {group: group},
 			label: 'bagTop',
 			isStatic: true,
