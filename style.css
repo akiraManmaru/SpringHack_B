@@ -43,6 +43,13 @@ body{
   height: 200px;
   width: auto;
 }
+.flag{
+  position: absolute;
+  top: 30px;
+  right: 130px;
+  height: 200px;
+  width: auto;
+}
 #bag img{
   margin-top: 490px;
   margin-left: 570px;
@@ -51,7 +58,7 @@ body{
   transform: scale(-1, 1);
 }
 .matter{
-  margin: 0 290px;
+  margin: -25px 20px;
 }
 
 .left{
@@ -70,6 +77,15 @@ body{
   height: 800px;
   top: 20px;
   right: -300px;
+}
+
+.white{
+  position: absolute;
+  background-color: #fff;
+  width: 10px;
+  height: 20px;
+  top: 470px;
+  right: 238px;
 }
 
 footer{

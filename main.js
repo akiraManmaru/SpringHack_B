@@ -138,6 +138,3 @@ document.querySelector('.inu').animate(
 );
 
 
-
-
-    

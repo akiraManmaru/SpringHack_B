@@ -137,13 +137,13 @@ window.onload = ()=>{
 		const bag = Composite.create({label: "bag"});
 
 		//bag
-		const body = Bodies.rectangle(x, y, w, h, {
+		const body = Bodies.rectangle(x-65, y+10, w, h, {
 			collisionFilter: {group: group},
 			isStatic: true,
 			render: {
 				sprite:{texture: './images/bag.png',
-				xScale:0.15,
-				yScale:0.17
+				xScale:1.3,
+				yScale:1.2
 				},
 			}
 		});
